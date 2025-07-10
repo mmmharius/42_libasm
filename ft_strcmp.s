@@ -2,8 +2,6 @@ section .text
 global ft_strcmp
 
 ft_strcmp:
-    ; RDI = première chaîne (s1)
-    ; RSI = deuxième chaîne (s2)
 
 boucle:
     mov al, [rdi]
