@@ -18,6 +18,8 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f libasm
+	rm -f main
 
 re: fclean all
 
