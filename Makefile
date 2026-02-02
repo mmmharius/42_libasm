@@ -1,29 +1,31 @@
 NAME = libasm.a
 
 SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s ft_strdup.s
-OBJS = $(SRCS:.s=.o)
+OBJDIR = obj
+OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.s=.o))
 
 NASM_FORMAT = elf64
 
-all: $(NAME)
+all: $(OBJDIR) $(NAME)
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
 
-%.o: %.s
+$(OBJDIR)/%.o: %.s | $(OBJDIR)
 	nasm -f $(NASM_FORMAT) $< -o $@
 
+$(NAME): $(OBJS)
+	ar rcs $@ $(OBJS)
+
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJDIR)
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f libasm
-	rm -f main
+	rm -f $(NAME) libasm main
 
 re: fclean all
 
 main: $(NAME) main.c
-	gcc -fPIC main.c libasm.a -o libasm
+	gcc -fPIC main.c $(NAME) -o libasm
 
 .PHONY: all clean fclean re
