@@ -2,6 +2,7 @@ section .text
 global ft_strcpy
 
 ft_strcpy:
+    push rbx
     mov rax, rdi
 
 boucle:
@@ -16,6 +17,7 @@ boucle:
     jmp boucle
 
 fini:
+    pop rbx
     ret
 
 section .note.GNU-stack noalloc noexec nowrite progbits

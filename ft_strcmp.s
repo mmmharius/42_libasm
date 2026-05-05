@@ -2,7 +2,7 @@ section .text
 global ft_strcmp
 
 ft_strcmp:
-
+    push rbx
 boucle:
     mov al, [rdi]
     mov bl, [rsi]
@@ -18,13 +18,15 @@ boucle:
     jmp boucle
 
 differents:
-    movzx rax, al 
-    movzx rbx, bl 
-    sub rax, rbx  
+    movzx rax, al
+    movzx rbx, bl
+    sub rax, rbx
+    pop rbx
     ret
 
 egaux:
-    xor rax, rax    
+    xor rax, rax
+    pop rbx
     ret
 
 section .note.GNU-stack noalloc noexec nowrite progbits
